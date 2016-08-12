@@ -51,6 +51,11 @@ ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
+# Adjust PostgreSQL configuration
+RUN echo "host postgres all 123.11.22.15/32 trust" >> /etc/postgresql/9.5/main/pg_hba.conf
+
+RUN echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
+
 COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
